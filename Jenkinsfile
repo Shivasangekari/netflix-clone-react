@@ -37,5 +37,13 @@ pipeline {
                 echo "Application deployed successfully !!!!!"
             }
         }
+        stage ("Remove Docker Image Locally") {
+            steps {
+                /*
+                sh "docker image rm -f ${env.dockerHubUser}/netflix:latest"
+                sh "docker image rm -f netflix:latest"
+                */
+            }
+        }
     }
 }
