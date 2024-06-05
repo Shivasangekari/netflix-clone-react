@@ -1,5 +1,8 @@
 pipeline {
+    /*
     agent any
+    */
+    agent {label "dev"}
     stages {
         stage ("Code Clone") {
             steps {
@@ -8,15 +11,12 @@ pipeline {
         }
         stage ("Build & Test") {
             steps {
-                /*
                 sh "docker image build -t netflix:latest ."
-                */
                 echo "Image built & tested !!!"
             }
         }
         stage ("Push to DockerHub & Remove Local Images") {
             steps {
-                /*
                 withCredentials([usernamePassword(credentialsId:'dockerHub', usernameVariable: 'dockerHubUser', passwordVariable: 'dockerHubPass')]) {
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                     sh "docker image tag netflix:latest ${env.dockerHubUser}/netflix:latest"
@@ -26,8 +26,6 @@ pipeline {
                     sh "docker image rm -f netflix:latest"
                     echo "Removed Local Images"
                 }
-                */
-                echo "Image pushed to DockerHub and deleted images locally."
             }
         }
         stage ("App Deploy") {
